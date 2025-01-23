@@ -46,8 +46,8 @@ export default function RootLayout({
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
-                <h3 className="text-xl font-bold mb-4">John Architect</h3>
-                <p className="text-gray-400">Creating innovative architectural solutions</p>
+                <h3 className="text-xl font-bold mb-4">Zohar Tito</h3>
+                <p className="text-gray-400">Aspiring Architect | USC Candidate</p>
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-4">Contact</h3>
