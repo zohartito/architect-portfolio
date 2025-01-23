@@ -2,12 +2,13 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
+import SplashScreen from './components/SplashScreen'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Architect Portfolio',
-  description: 'Professional portfolio showcasing architectural projects and designs',
+  title: 'Zohar Tito | Architecture Portfolio',
+  description: 'Innovative architectural designs and projects by Zohar Tito - USC Architecture Candidate',
 }
 
 export default function RootLayout({
@@ -18,11 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav className="fixed w-full z-50 bg-white bg-opacity-90 backdrop-blur-sm shadow-sm">
+        <SplashScreen />
+        <nav className="fixed w-full z-40 bg-white bg-opacity-90 backdrop-blur-sm shadow-sm">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between h-16">
               <Link href="/" className="text-xl font-bold text-gray-900">
-                JA
+                ZT
               </Link>
               <div className="hidden md:flex space-x-8">
                 <Link href="/" className="text-gray-600 hover:text-gray-900 transition">Home</Link>
@@ -51,20 +53,20 @@ export default function RootLayout({
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-4">Contact</h3>
-                <p className="text-gray-400">Email: contact@johnarchitect.com</p>
-                <p className="text-gray-400">Phone: (123) 456-7890</p>
+                <p className="text-gray-400">Email: zohar.tito@example.com</p>
+                <p className="text-gray-400">Based in California</p>
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-4">Follow</h3>
                 <div className="flex space-x-4">
                   <a href="#" className="text-gray-400 hover:text-white transition">LinkedIn</a>
                   <a href="#" className="text-gray-400 hover:text-white transition">Instagram</a>
-                  <a href="#" className="text-gray-400 hover:text-white transition">Twitter</a>
+                  <a href="#" className="text-gray-400 hover:text-white transition">Behance</a>
                 </div>
               </div>
             </div>
             <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-              <p>&copy; {new Date().getFullYear()} John Architect. All rights reserved.</p>
+              <p>&copy; {new Date().getFullYear()} Zohar Tito. All rights reserved.</p>
             </div>
           </div>
         </footer>
