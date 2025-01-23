@@ -1,75 +1,64 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Points, PointMaterial } from '@react-three/drei';
-import * as THREE from 'three';
 import gsap from 'gsap';
-
-function ParticleField() {
-  const points = useRef<THREE.Points>(null!);
-  const { viewport } = useThree();
-
-  useFrame((state) => {
-    points.current.rotation.x += 0.0005;
-    points.current.rotation.y += 0.001;
-  });
-
-  const particleCount = 5000;
-  const positions = new Float32Array(particleCount * 3);
-
-  for (let i = 0; i < particleCount; i++) {
-    const i3 = i * 3;
-    positions[i3] = (Math.random() - 0.5) * 10;
-    positions[i3 + 1] = (Math.random() - 0.5) * 10;
-    positions[i3 + 2] = (Math.random() - 0.5) * 10;
-  }
-
-  return (
-    <Points ref={points}>
-      <PointMaterial
-        transparent
-        vertexColors
-        size={0.05}
-        sizeAttenuation={true}
-        depthWrite={false}
-      />
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={particleCount}
-          array={positions}
-          itemSize={3}
-        />
-      </bufferGeometry>
-    </Points>
-  );
-}
 
 export default function SplashScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (containerRef.current && textRef.current) {
-      // Initial animation
-      gsap.from(textRef.current, {
-        opacity: 0,
-        y: 50,
-        duration: 1.5,
-        ease: "power3.out"
-      });
-
-      // Exit animation after 3.5 seconds
+    if (containerRef.current) {
+      const zoharLetters = Array.from(containerRef.current.querySelectorAll('.zohar-letter'));
+      const titoLetters = Array.from(containerRef.current.querySelectorAll('.tito-letter'));
+      const allLetters = [...zoharLetters, ...titoLetters];
+      
+      // Start transition after 1 second
       setTimeout(() => {
-        gsap.to(containerRef.current, {
-          opacity: 0,
-          duration: 1,
-          ease: "power3.inOut",
+        // First move all letters up and fade out non-Z-T letters
+        gsap.to(allLetters, {
+          y: (index) => {
+            const isZ = index === 0;
+            const isFirstT = index === 5;
+            if (isZ || isFirstT) return 0;
+            return -100;
+          },
+          x: (index) => {
+            const isZ = index === 0;
+            const isFirstT = index === 5;
+            if (isZ) return 0;
+            if (isFirstT) return 40;
+            return index < 5 ? -200 : 200;
+          },
+          opacity: (index) => {
+            const isZ = index === 0;
+            const isFirstT = index === 5;
+            return isZ || isFirstT ? 1 : 0;
+          },
+          position: (index) => {
+            const isZ = index === 0;
+            const isFirstT = index === 5;
+            return isZ || isFirstT ? 'fixed' : 'relative';
+          },
+          top: (index) => {
+            const isZ = index === 0;
+            const isFirstT = index === 5;
+            return isZ || isFirstT ? '1rem' : 'auto';
+          },
+          left: (index) => {
+            const isZ = index === 0;
+            const isFirstT = index === 5;
+            if (isZ) return '1rem';
+            if (isFirstT) return '2.5rem';
+            return 'auto';
+          },
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.02,
+          ease: "power2.inOut",
           onComplete: () => setIsLoading(false)
         });
-      }, 3500);
+      }, 1000);
     }
   }, []);
 
@@ -78,23 +67,36 @@ export default function SplashScreen() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 bg-black"
-      style={{ perspective: "1000px" }}
+      className="fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden"
     >
-      <Canvas
-        camera={{ position: [0, 0, 5], fov: 75 }}
-        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-      >
-        <ParticleField />
-      </Canvas>
-      <div
-        ref={textRef}
-        className="absolute inset-0 flex items-center justify-center text-white"
-        style={{ mixBlendMode: "difference" }}
-      >
-        <div className="text-center">
-          <h1 className="text-6xl font-bold mb-4 tracking-wider">ZOHAR TITO</h1>
-          <p className="text-xl tracking-widest">ARCHITECTURE PORTFOLIO</p>
+      <div className="flex items-center justify-center text-white gap-4">
+        <div className="flex">
+          {["Z", "O", "H", "A", "R"].map((char, index) => (
+            <span
+              key={index}
+              className="text-xl font-bold inline-block transform-gpu zohar-letter"
+              style={{ 
+                transformOrigin: "top left",
+                letterSpacing: "-0.02em"
+              }}
+            >
+              {char}
+            </span>
+          ))}
+        </div>
+        <div className="flex">
+          {["T", "I", "T", "O"].map((char, index) => (
+            <span
+              key={`t-${index}`}
+              className="text-xl font-bold inline-block transform-gpu tito-letter"
+              style={{ 
+                transformOrigin: "top left",
+                letterSpacing: "-0.02em"
+              }}
+            >
+              {char}
+            </span>
+          ))}
         </div>
       </div>
     </div>
