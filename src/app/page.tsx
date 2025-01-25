@@ -1,98 +1,180 @@
-import Image from 'next/image'
-import Link from 'next/link'
+'use client';
+
+import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+interface Project {
+  id: number;
+  title: string;
+  image: string;
+  slug: string;
+}
+
+const projects: Project[] = [
+  {
+    id: 1,
+    title: "Urban Housing",
+    image: "/architecture1.jpg",
+    slug: "urban-housing"
+  },
+  {
+    id: 2,
+    title: "Cultural Center",
+    image: "/architecture2.jpg",
+    slug: "cultural-center"
+  },
+  {
+    id: 3,
+    title: "Eco Complex",
+    image: "/architecture3.jpg",
+    slug: "eco-complex"
+  },
+  {
+    id: 4,
+    title: "Public Library",
+    image: "/architecture4.jpg",
+    slug: "public-library"
+  },
+  {
+    id: 5,
+    title: "Residential Tower",
+    image: "/architecture5.jpg",
+    slug: "residential-tower"
+  },
+  {
+    id: 6,
+    title: "Sports Complex",
+    image: "/architecture6.jpg",
+    slug: "sports-complex"
+  },
+  {
+    id: 7,
+    title: "Innovation Hub",
+    image: "/architecture1.jpg",
+    slug: "innovation-hub"
+  }
+];
 
 export default function Home() {
-  return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="h-screen flex items-center justify-center bg-gray-900 text-white relative">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/hero-bg.jpg"
-            alt="Architecture background"
-            fill
-            className="object-cover opacity-50"
-            priority
-          />
-        </div>
-        <div className="z-10 text-center">
-          <h1 className="text-6xl font-bold mb-4">Zohar Tito</h1>
-          <p className="text-xl mb-8">Creating spaces that inspire</p>
-          <Link 
-            href="/projects" 
-            className="inline-block bg-white text-gray-900 px-8 py-3 rounded-md hover:bg-gray-200 transition"
-          >
-            View Projects
-          </Link>
-        </div>
-      </section>
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-      {/* Featured Projects Preview */}
-      <section className="py-20 bg-white">
+  useEffect(() => {
+    projectRefs.current = projectRefs.current.slice(0, projects.length);
+
+    // Create animations for each project
+    projectRefs.current.forEach((project, index) => {
+      if (!project) return;
+
+      // Fade in and scale animation when project enters viewport
+      gsap.fromTo(project,
+        {
+          opacity: 0,
+          scale: 0.95,
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: project,
+            start: "top bottom-=20%",
+            end: "top center",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+
+      // Parallax effect on project images
+      const image = project.querySelector('img');
+      if (image) {
+        gsap.to(image, {
+          y: "15%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: project,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1
+          }
+        });
+      }
+    });
+  }, []);
+
+  return (
+    <main className="relative bg-black">
+      {/* Fixed Navigation */}
+      <nav className="fixed top-0 left-0 w-full z-50 mix-blend-difference">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center">Featured Work</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((project) => (
-              <Link href="/projects" key={project} className="group">
-                <div className="relative overflow-hidden rounded-lg shadow-lg aspect-[4/3]">
-                  <Image
-                    src={`/project${project}.jpg`}
-                    alt={`Project ${project}`}
-                    fill
-                    className="object-cover transition-transform group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <p className="text-white text-lg font-semibold">View Project</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="text-center mt-12">
-            <Link 
-              href="/projects"
-              className="inline-block bg-gray-900 text-white px-8 py-3 rounded-md hover:bg-gray-800 transition"
-            >
-              View All Projects
+          <div className="flex items-center justify-between h-20">
+            <Link href="/" className="text-white text-xl font-bold tracking-tight">
+              ZT
             </Link>
           </div>
         </div>
-      </section>
+      </nav>
 
-      {/* Services Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center">Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="text-2xl font-bold mb-4">Architectural Design</h3>
-              <p className="text-gray-600">Comprehensive architectural design services for residential and commercial projects.</p>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="text-2xl font-bold mb-4">Urban Planning</h3>
-              <p className="text-gray-600">Strategic urban planning solutions that create sustainable and livable communities.</p>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-sm">
-              <h3 className="text-2xl font-bold mb-4">Interior Design</h3>
-              <p className="text-gray-600">Thoughtful interior design that balances aesthetics with functionality.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-20 bg-gray-900 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-8">Ready to Start Your Project?</h2>
-          <p className="text-xl mb-8 text-gray-300">Let's create something amazing together</p>
-          <Link 
-            href="/contact"
-            className="inline-block bg-white text-gray-900 px-8 py-3 rounded-md hover:bg-gray-200 transition"
+      {/* Projects Stack */}
+      <div className="relative">
+        {projects.map((project, index) => (
+          <Link
+            key={project.id}
+            href={`/projects/${project.slug}`}
+            className="block relative w-full h-[50vh] group cursor-pointer"
           >
-            Get in Touch
+            <div
+              ref={el => projectRefs.current[index] = el}
+              className="relative w-full h-full overflow-hidden"
+            >
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover transform transition-transform duration-700 scale-105 group-hover:scale-110"
+                sizes="100vw"
+                priority={index < 2} // Prioritize loading first two images
+              />
+              <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
+              
+              {/* Project Title */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="px-4 transform transition-all duration-500 group-hover:scale-110">
+                  <h2 className="text-white text-3xl md:text-4xl font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    {project.title}
+                  </h2>
+                </div>
+              </div>
+
+              {/* Project Number */}
+              <div className="absolute bottom-0 right-0 p-8">
+                <span className="text-white/50 text-xl font-light">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+            </div>
           </Link>
-        </div>
-      </section>
+        ))}
+      </div>
+
+      {/* Touch Device Styles */}
+      <style jsx global>{`
+        @media (hover: none) {
+          .group:hover .group-hover\\:opacity-100 {
+            opacity: 1;
+          }
+          .group:hover .group-hover\\:scale-110 {
+            transform: scale(1.1);
+          }
+        }
+      `}</style>
     </main>
-  )
+  );
 }

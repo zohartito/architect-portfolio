@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
 import SplashScreen from './components/SplashScreen'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Zohar Tito | Architecture Portfolio',
@@ -18,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="font-sans">
         <SplashScreen />
         <nav className="fixed w-full z-40 bg-white bg-opacity-90 backdrop-blur-sm shadow-sm">
           <div className="container mx-auto px-4">
