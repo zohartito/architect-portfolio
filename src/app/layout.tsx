@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/favicon-16x16.png',
-        sizes: '16x16',
-        type: 'image/png',
+        url: '/favicon.ico',
+        sizes: 'any',
+        type: 'image/x-icon',
       },
       {
         url: '/favicon-32x32.png',
@@ -18,31 +18,12 @@ export const metadata: Metadata = {
         type: 'image/png',
       },
       {
-        url: '/favicon-48x48.png',
-        sizes: '48x48',
-        type: 'image/png',
-      },
-      {
-        url: '/favicon-64x64.png',
-        sizes: '64x64',
-        type: 'image/png',
-      },
-      {
-        url: '/favicon-96x96.png',
-        sizes: '96x96',
-        type: 'image/png',
-      },
-      {
-        url: '/favicon-128x128.png',
-        sizes: '128x128',
-        type: 'image/png',
-      },
-      {
-        url: '/favicon-256x256.png',
-        sizes: '256x256',
+        url: '/favicon-16x16.png',
+        sizes: '16x16',
         type: 'image/png',
       },
     ],
+    shortcut: [{ url: '/favicon.ico' }],
     apple: [
       {
         url: '/apple-touch-icon.png',
