@@ -1,101 +1,82 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 
-export default function SplashScreen() {
-  const [isLoading, setIsLoading] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
+interface Props {
+  onComplete?: () => void;
+}
+
+export default function SplashScreen({ onComplete }: Props) {
+  const [isAnimating, setIsAnimating] = useState(true);
 
   useEffect(() => {
-    if (containerRef.current) {
-      const zoharLetters = Array.from(containerRef.current.querySelectorAll('.zohar-letter'));
-      const titoLetters = Array.from(containerRef.current.querySelectorAll('.tito-letter'));
-      const allLetters = [...zoharLetters, ...titoLetters];
-      
-      // Start transition after 1 second
-      setTimeout(() => {
-        // First move all letters up and fade out non-Z-T letters
-        gsap.to(allLetters, {
-          y: (index) => {
-            const isZ = index === 0;
-            const isFirstT = index === 5;
-            if (isZ || isFirstT) return 0;
-            return -100;
-          },
-          x: (index) => {
-            const isZ = index === 0;
-            const isFirstT = index === 5;
-            if (isZ) return 0;
-            if (isFirstT) return 40;
-            return index < 5 ? -200 : 200;
-          },
-          opacity: (index) => {
-            const isZ = index === 0;
-            const isFirstT = index === 5;
-            return isZ || isFirstT ? 1 : 0;
-          },
-          position: (index) => {
-            const isZ = index === 0;
-            const isFirstT = index === 5;
-            return isZ || isFirstT ? 'fixed' : 'relative';
-          },
-          top: (index) => {
-            const isZ = index === 0;
-            const isFirstT = index === 5;
-            return isZ || isFirstT ? '1rem' : 'auto';
-          },
-          left: (index) => {
-            const isZ = index === 0;
-            const isFirstT = index === 5;
-            if (isZ) return '1rem';
-            if (isFirstT) return '2.5rem';
-            return 'auto';
-          },
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.02,
-          ease: "power2.inOut",
-          onComplete: () => setIsLoading(false)
-        });
-      }, 1000);
-    }
-  }, []);
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setIsAnimating(false);
+        if (onComplete) onComplete();
+      }
+    });
 
-  if (!isLoading) return null;
+    // Get all letters
+    const zoharLetters = Array.from(document.querySelectorAll('.zohar-letter'));
+    const titoLetters = Array.from(document.querySelectorAll('.tito-letter'));
+
+    // Initial state
+    gsap.set([...zoharLetters, ...titoLetters], {
+      y: () => gsap.utils.random(-500, 500),
+      opacity: 0
+    });
+
+    // Animate letters in
+    tl.to([...zoharLetters, ...titoLetters], {
+      duration: 1.5,
+      y: 0,
+      opacity: 1,
+      stagger: {
+        amount: 0.5,
+        from: "random"
+      },
+      ease: "power3.out"
+    });
+
+    // Move Z and T to final position
+    tl.to([zoharLetters[0], titoLetters[0]], {
+      y: 32,
+      x: (index) => index === 0 ? 16 : 36,
+      scale: 1,
+      fontSize: "text-xl",
+      duration: 0.8,
+      ease: "power2.inOut"
+    });
+
+    // Fade out other letters
+    tl.to([...zoharLetters.slice(1), ...titoLetters.slice(1)], {
+      opacity: 0,
+      y: -20,
+      scale: 0,
+      duration: 0.5,
+      stagger: {
+        amount: 0.2,
+        from: "random"
+      },
+      ease: "power2.in"
+    }, "-=0.4");
+  }, [onComplete]);
 
   return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden"
-    >
-      <div className="flex items-center justify-center text-white gap-4">
+    <div className={`fixed inset-0 z-50 bg-black flex items-center justify-center transition-opacity duration-500 ${
+      !isAnimating ? 'pointer-events-none opacity-0' : 'opacity-100'
+    }`}>
+      <div className="text-white text-7xl font-bold tracking-tight flex gap-4">
         <div className="flex">
-          {["Z", "O", "H", "A", "R"].map((char, index) => (
-            <span
-              key={index}
-              className="text-xl font-bold inline-block transform-gpu zohar-letter"
-              style={{ 
-                transformOrigin: "top left",
-                letterSpacing: "-0.02em"
-              }}
-            >
-              {char}
-            </span>
+          {'ZOHAR'.split('').map((letter, i) => (
+            <span key={i} className="zohar-letter transform-gpu">{letter}</span>
           ))}
         </div>
         <div className="flex">
-          {["T", "I", "T", "O"].map((char, index) => (
-            <span
-              key={`t-${index}`}
-              className="text-xl font-bold inline-block transform-gpu tito-letter"
-              style={{ 
-                transformOrigin: "top left",
-                letterSpacing: "-0.02em"
-              }}
-            >
-              {char}
-            </span>
+          {'TITO'.split('').map((letter, i) => (
+            <span key={i} className="tito-letter transform-gpu">{letter}</span>
           ))}
         </div>
       </div>

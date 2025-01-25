@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SplashScreen from './components/SplashScreen';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -64,66 +65,104 @@ const projects: Project[] = [
 
 export default function Home() {
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [splashComplete, setSplashComplete] = useState(false);
 
   useEffect(() => {
     projectRefs.current = projectRefs.current.slice(0, projects.length);
 
-    // Create animations for each project
-    projectRefs.current.forEach((project, index) => {
-      if (!project) return;
+    if (splashComplete) {
+      // Create animations for each project
+      projectRefs.current.forEach((project, index) => {
+        if (!project) return;
 
-      // Fade in and scale animation when project enters viewport
-      gsap.fromTo(project,
-        {
-          opacity: 0,
-          scale: 0.95,
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: project,
-            start: "top bottom-=20%",
-            end: "top center",
-            toggleActions: "play none none reverse"
+        // Fade in and scale animation when project enters viewport
+        gsap.fromTo(project,
+          {
+            opacity: 0,
+            scale: 0.95,
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: project,
+              start: "top bottom-=20%",
+              end: "top center",
+              toggleActions: "play none none reverse"
+            }
           }
+        );
+
+        // Parallax effect on project images
+        const image = project.querySelector('img');
+        if (image) {
+          gsap.to(image, {
+            y: "15%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: project,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1
+            }
+          });
         }
-      );
-
-      // Parallax effect on project images
-      const image = project.querySelector('img');
-      if (image) {
-        gsap.to(image, {
-          y: "15%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: project,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1
-          }
-        });
-      }
-    });
-  }, []);
+      });
+    }
+  }, [splashComplete]);
 
   return (
     <main className="relative bg-black">
+      <SplashScreen onComplete={() => setSplashComplete(true)} />
+      
       {/* Fixed Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 mix-blend-difference">
+      <nav className={`fixed top-0 left-0 w-full z-40 bg-white/90 backdrop-blur-sm transition-opacity duration-500 ${
+        splashComplete ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
-            <Link href="/" className="text-white text-xl font-bold tracking-tight">
+            <Link 
+              href="/" 
+              className="text-xl font-bold tracking-tight text-gray-800 hover:text-black transition-colors"
+            >
               ZT
             </Link>
+            <div className="flex items-center">
+              <Link 
+                href="/projects" 
+                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Projects
+              </Link>
+              <Link 
+                href="/gallery" 
+                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Gallery
+              </Link>
+              <Link 
+                href="/about" 
+                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                About
+              </Link>
+              <Link 
+                href="/contact" 
+                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Contact
+              </Link>
+            </div>
           </div>
         </div>
       </nav>
 
       {/* Projects Stack */}
-      <div className="relative">
+      <div className={`relative transition-opacity duration-500 ${
+        splashComplete ? 'opacity-100' : 'opacity-0'
+      }`}>
         {projects.map((project, index) => (
           <Link
             key={project.id}
@@ -131,7 +170,9 @@ export default function Home() {
             className="block relative w-full h-[50vh] group cursor-pointer"
           >
             <div
-              ref={el => projectRefs.current[index] = el}
+              ref={(el: HTMLDivElement | null) => {
+                if (el) projectRefs.current[index] = el;
+              }}
               className="relative w-full h-full overflow-hidden"
             >
               <Image
