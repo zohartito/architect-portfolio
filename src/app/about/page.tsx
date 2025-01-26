@@ -46,9 +46,10 @@ export default function About() {
           </div>
           <div className="relative h-[600px] rounded-lg overflow-hidden">
             <Image
-              src="/hero-bg.jpg?v=2"
+              src={`/hero-bg.jpg?v=${Date.now()}`}
               alt="Zohar Tito"
               fill
+              priority
               className="object-cover"
             />
           </div>
