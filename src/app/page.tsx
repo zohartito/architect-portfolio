@@ -16,6 +16,7 @@ interface Project {
   title: string;
   image: string;
   slug: string;
+  description: string;
 }
 
 const projects: Project[] = [
@@ -23,37 +24,57 @@ const projects: Project[] = [
     id: 1,
     title: "Urban Housing",
     image: "/architecture1.jpg",
-    slug: "urban-housing"
+    slug: "urban-housing",
+    description: "Sustainable living spaces in downtown area"
   },
   {
     id: 2,
     title: "Cultural Center",
     image: "/architecture2.jpg",
-    slug: "cultural-center"
+    slug: "cultural-center",
+    description: "Modern cultural hub with traditional elements"
   },
   {
     id: 3,
     title: "Eco Complex",
     image: "/architecture3.jpg",
-    slug: "eco-complex"
+    slug: "eco-complex",
+    description: "Green building with innovative energy solutions"
   },
   {
     id: 4,
     title: "Public Library",
     image: "/architecture4.jpg",
-    slug: "public-library"
+    slug: "public-library",
+    description: "Contemporary knowledge center"
   },
   {
     id: 5,
     title: "Residential Tower",
     image: "/architecture5.jpg",
-    slug: "residential-tower"
+    slug: "residential-tower",
+    description: "Luxury apartments with panoramic views"
   },
   {
     id: 6,
     title: "Sports Complex",
     image: "/architecture6.jpg",
-    slug: "sports-complex"
+    slug: "sports-complex",
+    description: "Multi-purpose athletic facility"
+  },
+  {
+    id: 7,
+    title: "Education Campus",
+    image: "/architecture7.jpg",
+    slug: "education-campus",
+    description: "Innovative learning spaces with integrated technology and sustainable design principles"
+  },
+  {
+    id: 8,
+    title: "Wellness Center",
+    image: "/architecture8.jpg",
+    slug: "wellness-center",
+    description: "Biophilic design merging nature and architecture for holistic wellbeing"
   }
 ];
 
@@ -192,31 +213,6 @@ export default function Home() {
                   className="text-gray-600 hover:text-gray-900 transition inline-block text-lg"
                 >
                   (818) 518-8596
-                </a>
-              </div>
-            </div>
-            
-            {/* Social Links */}
-            <div className="mt-12">
-              <h3 className="text-xl font-bold mb-6">Connect with Me</h3>
-              <div className="flex justify-center space-x-8">
-                <a 
-                  href="#" 
-                  className="text-gray-600 hover:text-gray-900 transition flex items-center space-x-2"
-                >
-                  <span className="text-lg">LinkedIn</span>
-                </a>
-                <a 
-                  href="#" 
-                  className="text-gray-600 hover:text-gray-900 transition flex items-center space-x-2"
-                >
-                  <span className="text-lg">Instagram</span>
-                </a>
-                <a 
-                  href="#" 
-                  className="text-gray-600 hover:text-gray-900 transition flex items-center space-x-2"
-                >
-                  <span className="text-lg">Twitter</span>
                 </a>
               </div>
             </div>
