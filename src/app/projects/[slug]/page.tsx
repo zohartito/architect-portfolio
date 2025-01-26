@@ -46,6 +46,18 @@ const projects = [
     title: "Sports Complex",
     description: "Multi-purpose athletic facility",
     image: "/architecture6.jpg"
+  },
+  {
+    slug: "education-campus",
+    title: "Education Campus",
+    description: "Innovative learning spaces with integrated technology and sustainable design principles",
+    image: "/architecture7.jpg"
+  },
+  {
+    slug: "wellness-center",
+    title: "Wellness Center",
+    description: "Biophilic design merging nature and architecture for holistic wellbeing",
+    image: "/architecture8.jpg"
   }
 ];
 
