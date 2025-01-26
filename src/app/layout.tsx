@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import ClientLayout from './components/ClientLayout'
+import RootLayoutClient from './components/RootLayoutClient'
 
 export const metadata: Metadata = {
   title: 'Zohar Tito | Architecture Portfolio',
@@ -37,9 +38,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <ClientLayout>
-        {children}
-      </ClientLayout>
+      <body>
+        <RootLayoutClient>
+          <ClientLayout>
+            {children}
+          </ClientLayout>
+        </RootLayoutClient>
+      </body>
     </html>
   )
 }

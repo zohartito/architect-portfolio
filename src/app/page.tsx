@@ -54,18 +54,25 @@ const projects: Project[] = [
     title: "Sports Complex",
     image: "/architecture6.jpg",
     slug: "sports-complex"
-  },
-  {
-    id: 7,
-    title: "Innovation Hub",
-    image: "/architecture1.jpg",
-    slug: "innovation-hub"
   }
 ];
 
 export default function Home() {
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [splashComplete, setSplashComplete] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const hasSeenSplash = localStorage.getItem('hasSeenSplash');
+    if (hasSeenSplash) {
+      setShowSplash(false);
+      setSplashComplete(true);
+    }
+  }, []);
+
+  const handleSplashComplete = () => {
+    setSplashComplete(true);
+  };
 
   useEffect(() => {
     projectRefs.current = projectRefs.current.slice(0, projects.length);
@@ -115,50 +122,8 @@ export default function Home() {
 
   return (
     <main className="relative bg-black">
-      <SplashScreen onComplete={() => setSplashComplete(true)} />
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
       
-      {/* Fixed Navigation */}
-      <nav className={`fixed top-0 left-0 w-full z-40 bg-white/90 backdrop-blur-sm transition-opacity duration-500 ${
-        splashComplete ? 'opacity-100' : 'opacity-0 pointer-events-none'
-      }`}>
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            <Link 
-              href="/" 
-              className="text-xl font-bold tracking-tight text-gray-800 hover:text-black transition-colors"
-            >
-              ZT
-            </Link>
-            <div className="flex items-center">
-              <Link 
-                href="/projects" 
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Projects
-              </Link>
-              <Link 
-                href="/gallery" 
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Gallery
-              </Link>
-              <Link 
-                href="/about" 
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                About
-              </Link>
-              <Link 
-                href="/contact" 
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Contact
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Projects Stack */}
       <div className={`relative transition-opacity duration-500 ${
         splashComplete ? 'opacity-100' : 'opacity-0'
@@ -181,7 +146,7 @@ export default function Home() {
                 fill
                 className="object-cover transform transition-transform duration-700 scale-105 group-hover:scale-110"
                 sizes="100vw"
-                priority={index < 2} // Prioritize loading first two images
+                priority={index < 2}
               />
               <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
               
@@ -204,6 +169,60 @@ export default function Home() {
           </Link>
         ))}
       </div>
+
+      {/* Contact Section */}
+      <section id="contact" className="relative bg-white py-24 min-h-screen flex items-center">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-12">Get in Touch</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-4">Email</h3>
+                <a 
+                  href="mailto:zohartito96@gmail.com" 
+                  className="text-gray-600 hover:text-gray-900 transition inline-block text-lg"
+                >
+                  zohartito96@gmail.com
+                </a>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-4">Phone</h3>
+                <a 
+                  href="tel:+18185188596" 
+                  className="text-gray-600 hover:text-gray-900 transition inline-block text-lg"
+                >
+                  (818) 518-8596
+                </a>
+              </div>
+            </div>
+            
+            {/* Social Links */}
+            <div className="mt-12">
+              <h3 className="text-xl font-bold mb-6">Connect with Me</h3>
+              <div className="flex justify-center space-x-8">
+                <a 
+                  href="#" 
+                  className="text-gray-600 hover:text-gray-900 transition flex items-center space-x-2"
+                >
+                  <span className="text-lg">LinkedIn</span>
+                </a>
+                <a 
+                  href="#" 
+                  className="text-gray-600 hover:text-gray-900 transition flex items-center space-x-2"
+                >
+                  <span className="text-lg">Instagram</span>
+                </a>
+                <a 
+                  href="#" 
+                  className="text-gray-600 hover:text-gray-900 transition flex items-center space-x-2"
+                >
+                  <span className="text-lg">Twitter</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Touch Device Styles */}
       <style jsx global>{`

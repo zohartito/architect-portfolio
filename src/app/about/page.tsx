@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import ContactSection from '../components/ContactSection'
 
 export default function About() {
   const skills = [
@@ -14,59 +15,30 @@ export default function About() {
     "Green Building Standards"
   ]
 
-  const experiences = [
-    {
-      year: "2020-Present",
-      role: "Senior Architect",
-      company: "Modern Design Studio",
-      description: "Leading innovative architectural projects with a focus on sustainability and urban integration."
-    },
-    {
-      year: "2015-2020",
-      role: "Project Architect",
-      company: "Urban Architects Inc.",
-      description: "Managed multiple residential and commercial projects from concept to completion."
-    },
-    {
-      year: "2012-2015",
-      role: "Junior Architect",
-      company: "Global Architecture Firm",
-      description: "Collaborated on international projects and developed expertise in sustainable design."
-    }
-  ]
-
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-16">
         {/* Hero Section */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-          <div>
-            <h1 className="text-4xl font-bold mb-6">About Me</h1>
-            <p className="text-gray-600 leading-relaxed mb-6">
-              With over 10 years of experience in architectural design, I specialize in creating 
-              sustainable and innovative spaces that harmoniously blend with their surroundings. 
-              My approach combines modern design principles with environmental consciousness, 
-              ensuring each project contributes positively to its community.
+        <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
+          <div className="space-y-6">
+            <h1 className="text-4xl font-bold mb-8">About Me</h1>
+            <p className="text-gray-600 leading-relaxed">
+              Designing complex things and the always changing world of technology fuels my original drive. Multidisciplinary solutions are demanded by many challenges in a world where I am found thriving at the convergence of architecture, innovation and purpose. I, an aspiring architect, along with an original thinker, look beyond customary blueprints. I envision projects as components of a larger system, integrating at least three key elements: sustainability, function, as well as aesthetic balance.
             </p>
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="text-2xl font-bold text-gray-900">50+</h3>
-                <p className="text-gray-600">Projects</p>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="text-2xl font-bold text-gray-900">10+</h3>
-                <p className="text-gray-600">Years</p>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="text-2xl font-bold text-gray-900">20+</h3>
-                <p className="text-gray-600">Awards</p>
-              </div>
-            </div>
+            <p className="text-gray-600 leading-relaxed">
+              Design is increasingly not limited to singular principles; rather, it is characterized by deeply dynamic as well as layered approaches, which are influenced by a collection of disciplines along with global challenges. In each project that I pursue, I deliberately strive to powerfully adjust my work with considerably larger goals of meaningful effect, using sustainable design strategies, revolutionary spatial planning, or by carefully creating experiences that deeply resonate on a human level.
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              I fundamentally base my approach on collaboration. I collaborate with at least four types of professionals—engineers, artists, technologists and community leaders—to integrate several fresh perspectives. I then create designs that challenge conventions while respecting context. It is believed that the most powerful ideas are generated not from singularly brilliant minds, but from the collaborative intellect of a deeply committed team, bound together by a commonly held vision.
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              I intend to aggressively push the boundaries of architecture, skillfully merging original vision with practical application. I am driven by a powerful desire to build and by a meaningful responsibility to shape environments that inspire, connect and undergo. Each design, regardless of its size, presents at least one opportunity to effect positive change—a single step toward a more considerate, along with a more linked future.
+            </p>
           </div>
-          <div className="relative h-[500px] rounded-lg overflow-hidden">
+          <div className="relative h-[600px] rounded-lg overflow-hidden">
             <Image
               src="/hero-bg.jpg"
-              alt="John Architect"
+              alt="Zohar Tito"
               fill
               className="object-cover"
             />
@@ -87,22 +59,10 @@ export default function About() {
             ))}
           </div>
         </div>
-
-        {/* Experience Section */}
-        <div>
-          <h2 className="text-3xl font-bold mb-8">Professional Experience</h2>
-          <div className="space-y-8">
-            {experiences.map((exp, index) => (
-              <div key={index} className="border-l-4 border-gray-200 pl-4 hover:border-gray-900 transition">
-                <div className="text-gray-600">{exp.year}</div>
-                <h3 className="text-xl font-bold">{exp.role}</h3>
-                <div className="text-gray-800 mb-2">{exp.company}</div>
-                <p className="text-gray-600">{exp.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
+
+      {/* Contact Section */}
+      <ContactSection />
     </div>
   )
 }

@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 interface Props {
@@ -47,12 +46,6 @@ const projects = [
     title: "Sports Complex",
     description: "Multi-purpose athletic facility",
     image: "/architecture6.jpg"
-  },
-  {
-    slug: "innovation-hub",
-    title: "Innovation Hub",
-    description: "Forward-thinking workspace design",
-    image: "/architecture1.jpg"
   }
 ];
 
@@ -64,6 +57,15 @@ export default function ProjectPage({ params }: Props) {
     if (!project) {
       router.push('/');
     }
+
+    // Cleanup function
+    return () => {
+      // Ensure any animations or transitions are cleaned up
+      const cleanup = () => {
+        document.body.style.overflow = '';
+      };
+      cleanup();
+    };
   }, [project, router]);
 
   if (!project) return null;
@@ -87,46 +89,6 @@ export default function ProjectPage({ params }: Props) {
           </div>
         </div>
       </div>
-
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-sm">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            <Link 
-              href="/" 
-              className="text-xl font-bold tracking-tight text-gray-800 hover:text-black transition-colors"
-            >
-              ZT
-            </Link>
-            <div className="flex items-center">
-              <Link 
-                href="/projects" 
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Projects
-              </Link>
-              <Link 
-                href="/gallery" 
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Gallery
-              </Link>
-              <Link 
-                href="/about" 
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                About
-              </Link>
-              <Link 
-                href="/contact" 
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Contact
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
     </main>
   );
 } 

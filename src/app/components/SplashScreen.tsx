@@ -11,13 +11,6 @@ export default function SplashScreen({ onComplete }: Props) {
   const [isAnimating, setIsAnimating] = useState(true);
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setIsAnimating(false);
-        if (onComplete) onComplete();
-      }
-    });
-
     // Get all letters
     const zoharLetters = Array.from(document.querySelectorAll('.zohar-letter'));
     const titoLetters = Array.from(document.querySelectorAll('.tito-letter'));
@@ -26,6 +19,17 @@ export default function SplashScreen({ onComplete }: Props) {
     gsap.set([...zoharLetters, ...titoLetters], {
       y: () => gsap.utils.random(-500, 500),
       opacity: 0
+    });
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setIsAnimating(false);
+        if (onComplete) onComplete();
+        // Dispatch event for navigation
+        window.dispatchEvent(new Event('splashComplete'));
+        // Store in localStorage after animation completes
+        localStorage.setItem('hasSeenSplash', 'true');
+      }
     });
 
     // Animate letters in
