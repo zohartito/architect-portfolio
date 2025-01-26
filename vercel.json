@@ -24,14 +24,5 @@
         }
       ]
     }
-  ],
-  "routes": [
-    {
-      "src": "/favicon.ico",
-      "dest": "/favicon.ico",
-      "headers": {
-        "cache-control": "public, max-age=3600, must-revalidate"
-      }
-    }
   ]
 } 
