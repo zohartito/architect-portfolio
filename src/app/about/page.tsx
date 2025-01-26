@@ -10,7 +10,7 @@ export default function About() {
     "AutoCAD",
     "Revit",
     "SketchUp",
-    "Project Management",
+    "Design Visualization",
     "Building Information Modeling (BIM)",
     "Green Building Standards"
   ]
@@ -34,10 +34,19 @@ export default function About() {
             <p className="text-gray-600 leading-relaxed">
               I intend to aggressively push the boundaries of architecture, skillfully merging original vision with practical application. I am driven by a powerful desire to build and by a meaningful responsibility to shape environments that inspire, connect and undergo. Each design, regardless of its size, presents at least one opportunity to effect positive change—a single step toward a more considerate, along with a more linked future.
             </p>
+            <p className="text-gray-600 leading-relaxed">
+            <br />
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              Zohar Tito
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              Aspiring Architect & Creative Designer
+            </p>
           </div>
           <div className="relative h-[600px] rounded-lg overflow-hidden">
             <Image
-              src="/hero-bg.jpg"
+              src="/hero-bg.jpg?v=2"
               alt="Zohar Tito"
               fill
               className="object-cover"
