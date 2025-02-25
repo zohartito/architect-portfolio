@@ -14,7 +14,21 @@ const nextConfig = {
           },
         ],
       },
+      {
+        // Disable caching for image files
+        source: '/:path*.jpg',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
+          },
+        ],
+      },
     ]
+  },
+  // Disable image optimization for local development
+  images: {
+    unoptimized: true,
   },
 }
 
