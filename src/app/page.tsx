@@ -6,77 +6,13 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplashScreen from './components/SplashScreen';
+import { projects } from './data/projects';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-interface Project {
-  id: number;
-  title: string;
-  image: string;
-  slug: string;
-  description: string;
-}
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "Urban Housing",
-    image: "/architecture1.jpg",
-    slug: "urban-housing",
-    description: "Sustainable living spaces in downtown area"
-  },
-  {
-    id: 2,
-    title: "Cultural Center",
-    image: "/architecture2.jpg",
-    slug: "cultural-center",
-    description: "Modern cultural hub with traditional elements"
-  },
-  {
-    id: 3,
-    title: "Eco Complex",
-    image: "/architecture3.jpg",
-    slug: "eco-complex",
-    description: "Green building with innovative energy solutions"
-  },
-  {
-    id: 4,
-    title: "Public Library",
-    image: "/architecture4.jpg",
-    slug: "public-library",
-    description: "Contemporary knowledge center"
-  },
-  {
-    id: 5,
-    title: "Residential Tower",
-    image: "/architecture5.jpg",
-    slug: "residential-tower",
-    description: "Luxury apartments with panoramic views"
-  },
-  {
-    id: 6,
-    title: "Sports Complex",
-    image: "/architecture6.jpg",
-    slug: "sports-complex",
-    description: "Multi-purpose athletic facility"
-  },
-  {
-    id: 7,
-    title: "Education Campus",
-    image: "/architecture7.jpg",
-    slug: "education-campus",
-    description: "Innovative learning spaces with integrated technology and sustainable design principles"
-  },
-  {
-    id: 8,
-    title: "Wellness Center",
-    image: "/architecture8.jpg",
-    slug: "wellness-center",
-    description: "Biophilic design merging nature and architecture for holistic wellbeing"
-  }
-];
+console.log("Projects being rendered:", projects);
 
 export default function Home() {
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -167,7 +103,9 @@ export default function Home() {
                 fill
                 className="object-cover transform transition-transform duration-700 scale-105 group-hover:scale-110"
                 sizes="100vw"
-                priority={index < 2}
+                priority={true}
+                unoptimized={true}
+                key={`project-image-${project.id}-${Date.now()}`}
               />
               <div className="absolute inset-0 bg-black/40 transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
               

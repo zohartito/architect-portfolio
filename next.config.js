@@ -2,33 +2,37 @@
 const nextConfig = {
   // Ensure static files are served from the public directory
   output: 'standalone',
-  // Configure static file serving
+  // Disable image optimization completely
+  images: {
+    unoptimized: true,
+  },
+  // Disable caching
   async headers() {
     return [
       {
-        source: '/:file(favicon\\.ico|robots\\.txt|manifest\\.json)',
+        source: '/:path*',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600',
+            value: 'no-store, no-cache, must-revalidate, max-age=0',
           },
-        ],
-      },
-      {
-        // Disable caching for image files
-        source: '/:path*.jpg',
-        headers: [
           {
-            key: 'Cache-Control',
-            value: 'no-cache, no-store, must-revalidate',
+            key: 'Pragma',
+            value: 'no-cache',
+          },
+          {
+            key: 'Expires',
+            value: '0',
           },
         ],
       },
-    ]
+    ];
   },
-  // Disable image optimization for local development
-  images: {
-    unoptimized: true,
+  // Force reload on every request
+  reactStrictMode: true,
+  // Disable static optimization
+  experimental: {
+    optimizeCss: false,
   },
 }
 

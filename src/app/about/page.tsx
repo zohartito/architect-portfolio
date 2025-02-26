@@ -23,7 +23,7 @@ export default function About() {
           <div className="space-y-6">
             <h1 className="text-4xl font-bold mb-8">About Me</h1>
             <p className="text-gray-600 leading-relaxed">
-              Designing complex things and the always changing world of technology fuels my original drive. Multidisciplinary solutions are demanded by many challenges in a world where I am found thriving at the convergence of architecture, innovation and purpose. I, an aspiring architect, along with an original thinker, look beyond customary blueprints. I envision projects as components of a larger system, integrating at least three key elements: sustainability, function, as well as aesthetic balance.
+              "Designing complex things and the always changing world of technology fuels my original drive. Multidisciplinary solutions are demanded by many challenges in a world where I am found thriving at the convergence of architecture, innovation and purpose. I, an aspiring architect, along with an original thinker, look beyond customary blueprints. I envision projects as components of a larger system, integrating at least three key elements: sustainability, function, as well as aesthetic balance.
             </p>
             <p className="text-gray-600 leading-relaxed">
               Design is increasingly not limited to singular principles; rather, it is characterized by deeply dynamic as well as layered approaches, which are influenced by a collection of disciplines along with global challenges. In each project that I pursue, I deliberately strive to powerfully adjust my work with considerably larger goals of meaningful effect, using sustainable design strategies, revolutionary spatial planning, or by carefully creating experiences that deeply resonate on a human level.
@@ -32,13 +32,13 @@ export default function About() {
               I fundamentally base my approach on collaboration. I collaborate with at least four types of professionals—engineers, artists, technologists and community leaders—to integrate several fresh perspectives. I then create designs that challenge conventions while respecting context. It is believed that the most powerful ideas are generated not from singularly brilliant minds, but from the collaborative intellect of a deeply committed team, bound together by a commonly held vision.
             </p>
             <p className="text-gray-600 leading-relaxed">
-              I intend to aggressively push the boundaries of architecture, skillfully merging original vision with practical application. I am driven by a powerful desire to build and by a meaningful responsibility to shape environments that inspire, connect and undergo. Each design, regardless of its size, presents at least one opportunity to effect positive change—a single step toward a more considerate, along with a more linked future.
+              I intend to aggressively push the boundaries of architecture, skillfully merging original vision with practical application. I am driven by a powerful desire to build and by a meaningful responsibility to shape environments that inspire, connect and undergo. Each design, regardless of its size, presents at least one opportunity to effect positive change—a single step toward a more considerate, along with a more linked future."
             </p>
             <p className="text-gray-600 leading-relaxed">
             <br />
             </p>
             <p className="text-gray-600 leading-relaxed">
-              Zohar Tito
+              -Zohar Tito
             </p>
             <p className="text-gray-600 leading-relaxed">
               Aspiring Architect & Creative Designer
