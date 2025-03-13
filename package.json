@@ -1,0 +1,45 @@
+{
+  "name": "architect-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node ./node_modules/next/dist/bin/next dev",
+    "build": "node ./node_modules/next/dist/bin/next build",
+    "start": "node ./node_modules/next/dist/bin/next start",
+    "lint": "node ./node_modules/next/dist/bin/next lint"
+  },
+  "dependencies": {
+    "@react-three/drei": "9.88.0",
+    "@react-three/fiber": "8.15.11",
+    "@types/three": "^0.172.0",
+    "framer-motion": "10.16.4",
+    "glob": "^11.0.1",
+    "gsap": "3.12.2",
+    "lottie-react": "^2.4.1",
+    "mkdirp": "^3.0.1",
+    "next": "13.5.6",
+    "pdfjs-dist": "^4.10.38",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-pdf": "^9.2.1",
+    "rimraf": "^6.0.1",
+    "styled-jsx": "^5.1.6",
+    "swiper": "^11.2.1",
+    "three": "0.159.0",
+    "three-mesh-bvh": "0.8.3",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "@types/react": "^18.2.52",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.17",
+    "canvas": "^3.1.0",
+    "eslint": "^9.20.1",
+    "eslint-config-next": "^15.1.7",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "to-ico": "^1.0.1",
+    "typescript": "^5.3.3"
+  }
+}

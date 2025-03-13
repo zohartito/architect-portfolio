@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+@layer utilities {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Custom styles for form elements */
+input, textarea {
+  @apply transition duration-200;
+}
+
+input:focus, textarea:focus {
+  @apply outline-none ring-2 ring-blue-500;
+}
+
+/* Custom styles for buttons */
+.btn {
+  @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm transition duration-200;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-white text-gray-900 hover:bg-gray-100;
+}
+
+/* Image hover effects */
+.image-hover {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.image-hover:hover {
+  @apply transform scale-105;
+}
+
+/* Section spacing */
+section {
+  @apply py-16 md:py-24;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold tracking-tight;
+}
+
+h1 {
+  @apply text-4xl md:text-6xl;
+}
+
+h2 {
+  @apply text-3xl md:text-4xl;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl;
+}
+
+/* Navigation active state */
+.nav-link.active {
+  @apply text-blue-600;
+}
+
+/* Remove grey backgrounds from PDF viewers */
+iframe {
+  background-color: white !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove grey backgrounds from containers */
+.pdf-container {
+  background-color: white !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Override any PDF viewer styles */
+.pdfViewer .page {
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: white !important;
+}
+
+.textLayer, .annotationLayer {
+  background: transparent !important;
+}
