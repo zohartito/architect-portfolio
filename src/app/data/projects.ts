@@ -74,20 +74,14 @@ export const projects: Project[] = [
     id: 7,
     title: "Sketches",
     subtitle: "Sketches",
-    image: "/architecture7.jpg",
+    image: "/architecture7.png",
     detailImage: "/project-details/detail7.jpg",
-    detailImage2: "/project-details/detail7b.jpg",
-    hasSecondImage: true,
-    hasThirdImage: false
   },
   {
     id: 8,
     title: "Grasshopper",
     subtitle: "Grasshopper",
-    image: "/architecture8.jpg",
+    image: "/architecture8.png",
     detailImage: "/project-details/detail8.jpg",
-    detailImage2: "/project-details/detail8b.jpg",
-    hasSecondImage: true,
-    hasThirdImage: false
   }
 ]; 
